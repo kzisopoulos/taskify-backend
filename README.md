@@ -1,17 +1,6 @@
-# Node starter
+# Taskify backend
 
-This project serves one purpose , have a pre-structure backend rest api in node & express in minutes.
-All bateries included, dockerized, auth strategy & associated middleware, typesafety, logger, prisma.
-You can take it from here and start building your own routes and controllers and whatever else you want.
-
-## Future plans
-
-In the future I plan on :
-
-- Integrating it with [Grafana](https://grafana.com/).
-- Experiment with jest.
-- Experiment and setting up PostgreSQL instead of sqlite3.
-- Experiment with [DrizzleORM](https://orm.drizzle.team/) as an alternative to Prisma.
+This is the backend of Taskify application. Its based and build upon starter_node backend project of mine.
 
 ### Getting started
 
@@ -33,3 +22,8 @@ In the future I plan on :
   This creates a new prisma directory with your Prisma schema file and configures SQLite as your database. You're now ready to model your data and create your database with some tables.
 - At this point, you have a Prisma schema but no database yet. Run the following command in your terminal to create the SQLite database and the User and Post tables represented by your models.
   `npx prisma migrate dev --name init`
+- Then run `npx prisma generate` to generate the Prisma client so you can use it in the application.
+- If you make changes to the schema you should run again
+  `npx prisma migrate dev --name <change name here>`
+  and the again the generate to create the updated client
+  `npx prisma generate`

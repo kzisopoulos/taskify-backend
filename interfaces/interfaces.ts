@@ -15,6 +15,15 @@ export interface AuthRouteResponse {
   username: string;
   accessToken: string;
 }
+
+export interface TaskRouteResponse {
+  id: number;
+  title: string;
+  priority: string;
+  note: string;
+  done: boolean;
+  userId: number;
+}
 // *****************************************************
 // Register structure of a response / request
 // *****************************************************
@@ -42,3 +51,15 @@ export const loginPayloadSchema = z.object({
 });
 
 export type LoginRouteRequest = z.infer<typeof loginPayloadSchema>;
+
+// *****************************************************
+// Create task structure of a response / request
+// *****************************************************
+
+export const createTaskPayloadSchema = z.object({
+  title: z.string().min(1, { message: "Title is a required field." }),
+  note: z.string().min(1, { message: "Note is a required field." }),
+  priority: z.string().min(1, { message: "Priority is a required field." }),
+  done: z.boolean(),
+  userId: z.number(),
+});

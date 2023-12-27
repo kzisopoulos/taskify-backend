@@ -16,5 +16,15 @@ model User {
   username  String @unique
   password String
   refreshToken String? @unique
+  tasks Task[]
 }
 
+model Task {
+  id  Int @id @default(autoincrement())
+  title String
+  priority String
+  note String
+  done Boolean
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+}

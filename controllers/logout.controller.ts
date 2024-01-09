@@ -22,9 +22,9 @@ const logout = async (req: Request, res: Response) => {
 
   // if there is a cookie find the user that it is assigned to and update it to null.
   const refreshToken = cookies.jwt;
-  await prisma.user.update({ where: { refreshToken: refreshToken }, data: { refreshToken: "" } });
+  await prisma.user.update({ where: { refreshToken: refreshToken }, data: { refreshToken: null } });
   // clear the cookie anyway on the browser.
-  // set secure : true on production
+  // set secure : true on productionnull
   res.clearCookie("jwt", {
     httpOnly: true,
     // sameSite: "None",

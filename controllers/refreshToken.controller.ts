@@ -1,11 +1,10 @@
-import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { AuthRouteResponse, RouteResponse } from "../interfaces/interfaces";
 import { Request, Response } from "express";
 
 dotenv.config();
-const prisma = new PrismaClient();
+const { prisma } = require("../config/prisma");
 
 const refreshToken = async (req: Request, res: Response) => {
   const cookies = req.cookies;

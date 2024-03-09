@@ -1,14 +1,12 @@
-import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { ZodError } from "zod";
 import { AuthRouteResponse, RouteResponse, loginPayloadSchema } from "../interfaces/interfaces";
+const { prisma } = require("../config/prisma");
 
 dotenv.config();
-const prisma = new PrismaClient();
-
 const login = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.body;

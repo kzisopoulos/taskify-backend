@@ -1,11 +1,10 @@
-import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { AuthRouteResponse, RouteResponse, registerPayloadSchema } from "../interfaces/interfaces";
 import { ZodError } from "zod";
 
-const prisma = new PrismaClient();
+const { prisma } = require("../config/prisma");
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -83,6 +82,7 @@ const register = async (req: Request, res: Response) => {
       .status(response.code)
       .json(response);
   } catch (error) {
+    console.log(error);
     const response: RouteResponse<null> = {
       code: 500,
       data: null,

@@ -1,10 +1,9 @@
-import { PrismaClient, Task } from "@prisma/client";
 import { Request, Response } from "express";
 import dotenv from "dotenv";
 import { RouteResponse, TaskRouteResponse, createTaskPayloadSchema } from "../interfaces/interfaces";
 
 dotenv.config();
-const prisma = new PrismaClient();
+const { prisma } = require("../config/prisma");
 
 export const getAllTasks = async (req: Request, res: Response) => {
   try {

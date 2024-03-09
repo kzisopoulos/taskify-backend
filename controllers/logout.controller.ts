@@ -1,7 +1,6 @@
-import { PrismaClient } from "@prisma/client";
 import { RouteResponse } from "../interfaces/interfaces";
 import { Request, Response } from "express";
-const prisma = new PrismaClient();
+const { prisma } = require("../config/prisma");
 
 const logout = async (req: Request, res: Response) => {
   // sidenote: on client also delete the accessToken

@@ -12,7 +12,7 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
+  id    String    @id @default(uuid())
   email String  @unique
   username  String @unique
   password String
@@ -21,11 +21,9 @@ model User {
 }
 
 model Task {
-  id  Int @id @default(autoincrement())
+  id  String @id @default(uuid())
   title String
-  priority String
-  note String
-  done Boolean
-  userId Int
+  status String
+  userId String
   user User @relation(fields: [userId], references: [id])
 }

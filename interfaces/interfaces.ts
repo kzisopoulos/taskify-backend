@@ -11,18 +11,19 @@ export interface RouteResponse<T> {
   data: T | null;
 }
 export interface AuthRouteResponse {
-  id: number;
+  id: string;
   username: string;
   accessToken: string;
 }
 
+const Status = z.union([z.literal("PENDING"), z.literal("IN_PROGRESS"), z.literal("DONE")]);
+type TaskStatus = z.infer<typeof Status>;
+
 export interface TaskRouteResponse {
-  id: number;
+  id: string;
   title: string;
-  priority: string;
-  note: string;
-  done: boolean;
-  userId: number;
+  status: TaskStatus;
+  userId: string;
 }
 // *****************************************************
 // Register structure of a response / request
@@ -58,8 +59,6 @@ export type LoginRouteRequest = z.infer<typeof loginPayloadSchema>;
 
 export const createTaskPayloadSchema = z.object({
   title: z.string().min(1, { message: "Title is a required field." }),
-  note: z.string().min(1, { message: "Note is a required field." }),
-  priority: z.string().min(1, { message: "Priority is a required field." }),
-  done: z.boolean(),
-  userId: z.number(),
+  status: Status,
+  userId: z.string(),
 });

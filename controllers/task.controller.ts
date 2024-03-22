@@ -9,7 +9,7 @@ export const getAllTasks = async (req: Request, res: Response) => {
   try {
     const userId = req.params.userId;
     const tasks = await prisma.task.findMany({
-      where: { userId: Number(userId) || 0 },
+      where: { userId: userId || "" },
     });
     const response: RouteResponse<TaskRouteResponse[]> = {
       code: 200,
@@ -34,13 +34,11 @@ export const getAllTasks = async (req: Request, res: Response) => {
 export const createTask = async (req: Request, res: Response) => {
   try {
     createTaskPayloadSchema.parse(req.body);
-    const { title, priority, note, done, userId } = req.body as TaskRouteResponse;
+    const { title, status, userId } = req.body as TaskRouteResponse;
     const newTask = await prisma.task.create({
       data: {
         title,
-        priority,
-        note,
-        done,
+        status,
         userId,
       },
     });
@@ -67,10 +65,10 @@ export const createTask = async (req: Request, res: Response) => {
 export const updateTask = async (req: Request, res: Response) => {
   try {
     const taskId = req.params.taskId;
-    const { title, priority, note, done } = req.body;
+    const { title, status } = req.body;
     const updatedTask = await prisma.task.update({
-      where: { id: Number(taskId) },
-      data: { title, note, priority, done },
+      where: { id: taskId },
+      data: { title, status },
     });
     const response: RouteResponse<TaskRouteResponse> = {
       code: 200,
@@ -96,7 +94,7 @@ export const deleteTask = async (req: Request, res: Response) => {
   try {
     const taskId = req.params.taskId;
     await prisma.task.delete({
-      where: { id: Number(taskId) },
+      where: { id: taskId },
     });
     const response: RouteResponse<unknown> = {
       code: 204,

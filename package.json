@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "nodemon",
     "studio": "npx prisma studio",
-    "build": "rimraf ./dist && tsc",
-    "start": "npm run build && node dist/src/index.js",
+    "build": "pnpm install && pnpm prisma generate && rm -rf ./dist && tsc",
+    "start": "node dist/src/index.js",
     "test": "jest",
     "test:watch": "jest --watch"
   },

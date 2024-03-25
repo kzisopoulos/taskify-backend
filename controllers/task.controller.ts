@@ -1,16 +1,15 @@
 import { Request, Response } from "express";
 import dotenv from "dotenv";
 import { RouteResponse, TaskRouteResponse, createTaskPayloadSchema } from "../interfaces/interfaces";
-
+import { prisma } from "../config/prisma";
 dotenv.config();
-const { prisma } = require("../config/prisma");
 
 export const getAllTasks = async (req: Request, res: Response) => {
   try {
     const userId = req.params.userId;
-    const tasks = await prisma.task.findMany({
+    const tasks = (await prisma.task.findMany({
       where: { userId: userId || "" },
-    });
+    })) as TaskRouteResponse[];
     const response: RouteResponse<TaskRouteResponse[]> = {
       code: 200,
       error: null,
@@ -35,13 +34,13 @@ export const createTask = async (req: Request, res: Response) => {
   try {
     createTaskPayloadSchema.parse(req.body);
     const { title, status, userId } = req.body as TaskRouteResponse;
-    const newTask = await prisma.task.create({
+    const newTask = (await prisma.task.create({
       data: {
         title,
         status,
         userId,
       },
-    });
+    })) as TaskRouteResponse;
     const response: RouteResponse<TaskRouteResponse> = {
       code: 201,
       data: newTask,
@@ -66,10 +65,10 @@ export const updateTask = async (req: Request, res: Response) => {
   try {
     const taskId = req.params.taskId;
     const { title, status } = req.body;
-    const updatedTask = await prisma.task.update({
+    const updatedTask = (await prisma.task.update({
       where: { id: taskId },
       data: { title, status },
-    });
+    })) as TaskRouteResponse;
     const response: RouteResponse<TaskRouteResponse> = {
       code: 200,
       data: updatedTask,

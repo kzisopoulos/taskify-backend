@@ -1,6 +1,6 @@
-const { PrismaClient } = require("@prisma/client");
-const { PrismaLibSQL } = require("@prisma/adapter-libsql");
-const { createClient } = require("@libsql/client");
+import { PrismaClient } from "@prisma/client";
+import { PrismaLibSQL } from "@prisma/adapter-libsql";
+import { createClient } from "@libsql/client";
 
 const libsql = createClient({
   url: process.env.TURSO_DATABASE_URL || "",
@@ -10,6 +10,4 @@ const libsql = createClient({
 const adapter = new PrismaLibSQL(libsql);
 const prisma = new PrismaClient({ adapter });
 
-module.exports = {
-  prisma: prisma,
-};
+export { prisma };

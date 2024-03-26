@@ -26,8 +26,8 @@ const logout = async (req: Request, res: Response) => {
   // set secure : true on productionnull
   res.clearCookie("jwt", {
     httpOnly: true,
-    // sameSite: "None",
-    // secure: true,
+    secure: true,
+    sameSite: "strict",
   });
   res.status(response.code).json(response);
 };

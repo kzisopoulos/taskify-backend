@@ -51,8 +51,8 @@ const login = async (req: Request, res: Response) => {
       // saving refresh token with current user
       res.cookie("jwt", refreshToken, {
         httpOnly: true,
-        // sameSite: "lax",
         secure: true,
+        sameSite: "strict",
         maxAge: 24 * 60 * 60 * 1000,
       });
       const response: RouteResponse<AuthRouteResponse> = {

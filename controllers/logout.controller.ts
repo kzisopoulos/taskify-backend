@@ -27,7 +27,7 @@ const logout = async (req: Request, res: Response) => {
   res.clearCookie("jwt", {
     httpOnly: true,
     secure: true,
-    sameSite: "strict",
+    sameSite: "lax",
   });
   res.status(response.code).json(response);
 };
